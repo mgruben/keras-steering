@@ -61,7 +61,14 @@ model.add(Activation('relu'))
 # Our output layer.  Outputs steering angle.
 model.add(Dense(1))
 
+# View the model training. eee!
 model.summary()
 model.compile(loss='mse', optimizer='rmsprop', metrics=['accuracy'])
 history = model.fit(X_train, Y_train, batch_size=128, nb_epoch=20,
                     verbose=1)
+
+# Save the output of our model, as requested
+with open('model.json', 'rb') as f:
+    f.write(model.to_json())
+
+model.save_weights('model.h5')
