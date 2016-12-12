@@ -13,9 +13,30 @@ import os
 # For reading csv output
 import pandas as pd
 
-def logsToDataframe():
+def makeInputPickle():
     '''
     Depending on the size of your input, this could exhaust memory :(
+    '''
+    
+    im_array = []
+
+    for track in ['T1', 'T2']:
+        for run in ['R01', 'R02', 'R03', 'R04', 'R05', 'R06', 'R07', 
+                    'R08', 'R09', 'R10', 'R11', 'R12', 'R13', 'R14']:
+            if not os.path.isdir(track + '/' + run):
+                continue
+            else:
+                fp = track + '/' + run + '/' + 'IMG'
+                imgs = os.listdir(fp)
+                for f in imgs:
+                    if 'center' in f:
+                        im_array.append(misc.imread(fp + '/' + f))
+    
+    
+    np.save('X_train.npy', im_array)
+
+def makeLabelsPickle():
+    '''
     '''
     
     merged_df = pd.DataFrame()
@@ -27,17 +48,8 @@ def logsToDataframe():
                 continue
             else:
                 fp = track + '/' + run + '/' + 'driving_log.csv'
-                df = pd.read_csv(fp, usecols=[0,3], names=['X_file','y_angle'])
+                df = pd.read_csv(fp, usecols=[3], names=['y_angle'])
                 merged_df = merged_df.append(df, ignore_index=True)
     
-    return merged_df
-    
-def makePickle(filename, dataframe, column)    
-    pf = 'pickles/' + filename
-    dataframe.to_pickle(pf)
-
-def makeLabelsPickle():
-    '''
-    '''
-    
+    np.save('Y_train.npy', merged_df.values)
     

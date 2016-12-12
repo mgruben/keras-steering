@@ -7,8 +7,14 @@ import numpy as np
 # To simplify the TensorFlow interface,
 # especially this will be a simple, normal model
 from keras.models import Sequential
-from keras.layers import Dense, Input, Activation, Conv2D, Flatten
+from keras.layers import Dense, Input, Activation, Conv2D
+from keras.layers import MaxPooling2D, Flatten, Dropout
 
+
+# Read in our training data
+# This WILL take a while
+X_train = np.load('X_train.npy')
+Y_train = np.load('Y_train.npy')
 
 # Define a sequential model
 # 
@@ -43,12 +49,12 @@ model.add(Activation('relu'))
 model.add(Flatten())
 
 # A fully-connected layer with dropout and ReLU
-model.add(Dense(256, init='normal')
+model.add(Dense(256, init='normal'))
 model.add(Dropout(0.5))
 model.add(Activation('relu'))
 
 # A fully-connected layer with dropout and ReLU
-model.add(Dense(128, init='normal')
+model.add(Dense(128, init='normal'))
 model.add(Dropout(0.5))
 model.add(Activation('relu'))
 
