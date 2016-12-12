@@ -11,6 +11,12 @@ from keras.layers import Dense, Input, Activation, Conv2D, Flatten
 
 
 # Define a sequential model
+# 
+# We can imagine that subsequent models might employ a three-headed
+# neural network: a center, a right, and a left, which all merge
+# prior to some fully-connected layers who form a consensus.
+# 
+# But here, let's start simple.
 model = Sequential()
 
 # A Convolutional Layer with maxpooling, dropout, and ReLU
