@@ -20,13 +20,21 @@ from keras.layers import Dense, Input, Activation, Conv2D, Flatten
 model = Sequential()
 
 # A Convolutional Layer with maxpooling, dropout, and ReLU
-model.add(Conv2D(32, 3, 3, input_shape=(32, 32, 3)))
-model.add(MaxPooling2D((2,2)))
+# 
+# Note that the input layer is 3 channels at 160 x 320, so we have
+# plenty of extra information to pare down without suffering much
+# of an accuracy loss.
+# 
+# Let's make use of that by applying a 4 x 4 max pooling layer, rather
+# than the standard 2 x 2.
+# 
+model.add(Conv2D(64, 5, 5, border_mode='same', input_shape=(160, 320, 3)))
+model.add(MaxPooling2D((4,4)))
 model.add(Dropout(0.5))
 model.add(Activation('relu'))
 
 # A Convolutional Layer with maxpooling, dropout, and ReLU
-model.add(Conv2D(32, 3, 3))
+model.add(Conv2D(32, 5, 5, border_mode='same'))
 model.add(MaxPooling2D((2,2)))
 model.add(Dropout(0.5))
 model.add(Activation('relu'))
@@ -35,7 +43,7 @@ model.add(Activation('relu'))
 model.add(Flatten())
 
 # A fully-connected layer with dropout and ReLU
-model.add(Dense(128, init='normal')
+model.add(Dense(256, init='normal')
 model.add(Dropout(0.5))
 model.add(Activation('relu'))
 
