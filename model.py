@@ -72,3 +72,7 @@ with open('model.json', 'w') as f:
     f.write(model.to_json())
 
 model.save_weights('model.h5')
+
+# Also save our history to a pickle file, for later perusing
+with open('history.p', 'wb') as f:
+    f.write(history.history, f, pickle.HIGHEST_PROTOCOL)
