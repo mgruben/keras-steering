@@ -10,6 +10,11 @@ from keras.models import Sequential
 from keras.layers import Dense, Input, Activation, Conv2D, Flatten
 
 
+# Read in our training data
+# This WILL take a while
+X_train = np.load('X_train')
+Y_train = np.load('Y_train')
+
 # Define a sequential model
 # 
 # We can imagine that subsequent models might employ a three-headed
