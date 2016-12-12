@@ -31,16 +31,9 @@ def makeInputPickle():
                 for f in imgs:
                     if 'center' in f:
                         im_array.append(misc.imread(fp + '/' + f))
-    im_array = np.array(im_array)
     
-    pf = 'pickles/X.p'
-    try:
-        pd = open(pf, 'wb')
-        pickle.dump(np.asarray(im_array), pd, pickle.HIGHEST_PROTOCOL)
-        pd.close()
-    except Exception as e:
-        print('Unable to save data to', pf, ':', e)
-        raise
+    
+    np.save('Inputs.npy', im_array)
 
 def makeLabelsPickle():
     '''
