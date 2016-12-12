@@ -9,7 +9,7 @@ import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense, Input, Activation, Conv2D
 from keras.layers import MaxPooling2D, Flatten, Dropout
-
+from keras.callbacks import ModelCheckpoint
 
 # Read in our training data
 # This WILL take a while
@@ -61,10 +61,15 @@ model.add(Activation('relu'))
 # Our output layer.  Outputs steering angle.
 model.add(Dense(1))
 
-# View the model training. eee!
+# Define our loss, optimizer, and metrics
 model.summary()
 model.compile(loss='mse', optimizer='rmsprop', metrics=['accuracy'])
-history = model.fit(X_train, Y_train, batch_size=128, nb_epoch=20,
+
+# Checkpoints after each epoch
+checkpointer = ModelCheckpoint(filepath="checkpoint.log", verbose=1, save_best_only=False)
+
+# View the model training. eee!
+history = model.fit(X_train, Y_train, batch_size=350, nb_epoch=20,
                     verbose=1)
 
 # Save the output of our model, as requested
