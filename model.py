@@ -19,3 +19,8 @@ model.add(Activation('relu'))
 model.add(Flatten())
 model.add(Dense(128, activation='relu'))
 model.add(Dense(43, activation='softmax'))
+
+model.summary()
+model.compile(loss='mse', optimizer='rmsprop', metrics=['accuracy'])
+history = model.fit(X_train, Y_train, batch_size=128, nb_epoch=20,
+                    verbose=1)
