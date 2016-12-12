@@ -10,15 +10,36 @@ from keras.models import Sequential
 from keras.layers import Dense, Input, Activation, Conv2D, Flatten
 
 
-
+# Define a sequential model
 model = Sequential()
+
+# A Convolutional Layer with maxpooling, dropout, and ReLU
 model.add(Conv2D(32, 3, 3, input_shape=(32, 32, 3)))
 model.add(MaxPooling2D((2,2)))
-model.add((Dropout(0.5)))
+model.add(Dropout(0.5))
 model.add(Activation('relu'))
+
+# A Convolutional Layer with maxpooling, dropout, and ReLU
+model.add(Conv2D(32, 3, 3))
+model.add(MaxPooling2D((2,2)))
+model.add(Dropout(0.5))
+model.add(Activation('relu'))
+
+# Flatten before passing to fully-connected layers
 model.add(Flatten())
-model.add(Dense(128, activation='relu'))
-model.add(Dense(43, activation='softmax'))
+
+# A fully-connected layer with dropout and ReLU
+model.add(Dense(128, init='normal')
+model.add(Dropout(0.5))
+model.add(Activation('relu'))
+
+# A fully-connected layer with dropout and ReLU
+model.add(Dense(128, init='normal')
+model.add(Dropout(0.5))
+model.add(Activation('relu'))
+
+# Our output layer.  Outputs steering angle.
+model.add(Dense(1))
 
 model.summary()
 model.compile(loss='mse', optimizer='rmsprop', metrics=['accuracy'])
