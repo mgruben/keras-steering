@@ -68,7 +68,7 @@ history = model.fit(X_train, Y_train, batch_size=128, nb_epoch=20,
                     verbose=1)
 
 # Save the output of our model, as requested
-with open('model.json', 'rb') as f:
+with open('model.json', 'w') as f:
     f.write(model.to_json())
 
 model.save_weights('model.h5')
