@@ -33,10 +33,23 @@ def makeInputPickle():
                         im_array.append(misc.imread(fp + '/' + f))
     
     
-    np.save('Inputs.npy', im_array)
+    np.save('X_train.npy', im_array)
 
 def makeLabelsPickle():
     '''
     '''
     
+    merged_df = pd.DataFrame()
+    
+    for track in ['T1', 'T2']:
+        for run in ['R01', 'R02', 'R03', 'R04', 'R05', 'R06', 'R07', 
+                    'R08', 'R09', 'R10', 'R11', 'R12', 'R13', 'R14']:
+            if not os.path.isdir(track + '/' + run):
+                continue
+            else:
+                fp = track + '/' + run + '/' + 'driving_log.csv'
+                df = pd.read_csv(fp, usecols=[3], names=['y_angle'])
+                merged_df = merged_df.append(df, ignore_index=True)
+    
+    np.save('Y_train.npy', merged_df.values)
     
