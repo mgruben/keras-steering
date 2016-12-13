@@ -4,6 +4,9 @@ import pickle
 # For feeding the data to the Keras model
 import numpy as np
 
+# For fixing silly JSON-isms
+import json
+
 # To simplify the TensorFlow interface,
 # especially this will be a simple, normal model
 from keras.models import Sequential
@@ -71,8 +74,9 @@ history = model.fit(X_train, Y_train, batch_size=350, nb_epoch=20,
                     verbose=1)
 
 # Save the output of our model, as requested
+model_json = model.to_json()
 with open('model.json', 'w') as f:
-    f.write(model.to_json())
+    json.dump(model_json, f)
 
 model.save_weights('model.h5')
 
