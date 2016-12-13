@@ -78,4 +78,4 @@ model.save_weights('model.h5')
 
 # Also save our history to a pickle file, for later perusing
 with open('history.p', 'wb') as f:
-    f.write(history.history, f, pickle.HIGHEST_PROTOCOL)
+    pickle.dump(history.history, f, pickle.HIGHEST_PROTOCOL)
