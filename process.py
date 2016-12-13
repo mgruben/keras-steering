@@ -30,7 +30,7 @@ def makeInputPickle():
                 imgs = os.listdir(fp)
                 for f in imgs:
                     if 'center' in f:
-                        im_array.append(misc.imread(fp + '/' + f))
+                        im_array.append(misc.imresize(misc.imread(fp + '/' + f), (32,16)))
     
     
     np.save('X_train.npy', im_array)
